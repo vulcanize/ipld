@@ -80,7 +80,7 @@ type Child union {
 
 type TrieExtensionNode struct {
     PartialPath Bytes
-    Child Child
+    ChildNode &TrieNode
 }
 
 type TrieLeafNode struct {
