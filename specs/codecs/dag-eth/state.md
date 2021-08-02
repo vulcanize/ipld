@@ -93,7 +93,7 @@ type TrieLeafNode struct {
 This is the IPLD schema type for transaction trie nodes.
 * The IPLD block is the RLP encoded trie node: `RLP([Bytes, Bytes, ...])`.
 * Leaf node keys are the RLP encoding of the transaction's index.
-* Leaf node values are the RLP encoded transaction.
+* Leaf node values are the consensus encoded transaction (Transaction IPLD).
 * CID links to a `TxTrieNode` use a KECCAK_256 multihash of the RLP encoded node and the EthTxTrie codec (0x92).
 * The root node of the transaction trie is referenced in an Ethereum `Header` by the `TxRootCID`.
 ```ipldsch
@@ -105,12 +105,24 @@ type TxTrieNode TrieNode
 This is the IPLD schema type for receipt trie nodes.
 * The IPLD block is the RLP encoded trie node: `RLP([Bytes, Bytes, ...])`.
 * Leaf node keys are the RLP encoding of the receipt's index.
-* Leaf node values are the RLP encoded receipt.
+* Leaf node values are the consensus encoded receipt (Receipt IPLD).
 * CID links to a `RctTrieNode` use a KECCAK_256 multihash of the RLP encoded node and the EthTxReceiptTrie codec (0x94).
 * The root node of the receipt trie is referenced in an Ethereum `Header` by the `RctRootCID`.
 ```ipldsch
 # RctTrieNode is an IPLD block for a node in the receipt trie
 type RctTrieNode TrieNode
+```
+
+## Log Trie IPLD
+This is the IPLD schema type for log trie nodes.
+* The IPLD block is the RLP encoded trie node: `RLP([Bytes, Bytes, ...])`.
+* Leaf node keys are the RLP encoding of the log's index.
+* Leaf node values are the RLP encoded log (Log IPLD).
+* CID links to a `LogTrieNode` use a KECCAK_256 multihash of the RLP encoded node and the EthRctLogTrie codec (tbd).
+* The root node of the log trie is referenced in an Ethereum `Receipt` by the `LogRootCID`.
+```ipldsch
+# LogTrieNode is an IPLD block for a node in the log trie
+type LogTrieNode TrieNode
 ```
 
 ## State Trie IPLD

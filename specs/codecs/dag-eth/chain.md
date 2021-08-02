@@ -146,7 +146,7 @@ type Receipt struct {
     PostStatus        nullable Status
     CumulativeGasUsed Uint
     Bloom             Bloom
-    Logs              [Log]
+    LogRootCID        &LogTrieNode
 }
 
 # Status is an enum indicating whether or not the application of a tx was succesful
@@ -155,9 +155,18 @@ type Status enum {
     | Successful   ("1")
 } representation int
 
-# Logs is a list of logs
-type Logs [Log]
+# Topics is a list of log topics
+type Topics [Hash]
+```
 
+## Log IPLD
+This is the IPLD schema for a canonical Ethereum log. It contains only the fields required for consensus.
+* The IPLD block is the consensus encoding of a receipt log:
+  * Log encoding: `RLP([Address, Topics, Data])`.
+* CID links to a `Log` use a KECCAK_256 multihash of the encoded log and the EthRctLog codec (tbd).
+* In ethereum, a `Log` does not exist as a hash-linked object, rather the logs for a receipt are encoded directly into a list inside the receipt.
+* In IPLD representation, we Merkleize this list of logs using a MMPT in the same way lists of transactions and receipts are Merkleized into the `TxRootCID` and `RctRootCID` in a `Header`.
+```ipldsch
 # Log contains the consensus fields of an Etherem receipt log
 type Log struct {
     Address Address
