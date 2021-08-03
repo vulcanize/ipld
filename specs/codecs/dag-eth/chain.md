@@ -146,6 +146,7 @@ type Receipt struct {
     PostStatus        nullable Status
     CumulativeGasUsed Uint
     Bloom             Bloom
+    Logs              Logs
     LogRootCID        &LogTrieNode
 }
 
@@ -167,6 +168,9 @@ This is the IPLD schema for a canonical Ethereum log. It contains only the field
 * In ethereum, a `Log` does not exist as a hash-linked object, rather the logs for a receipt are encoded directly into a list inside the receipt.
 * In IPLD representation, we Merkleize this list of logs using a MMPT in the same way lists of transactions and receipts are Merkleized into the `TxRootCID` and `RctRootCID` in a `Header`.
 ```ipldsch
+# Logs is a list of logs
+type Logs [Log]
+
 # Log contains the consensus fields of an Etherem receipt log
 type Log struct {
     Address Address
