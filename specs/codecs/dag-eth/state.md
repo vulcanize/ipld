@@ -80,7 +80,7 @@ type Child union {
 
 type TrieExtensionNode struct {
     PartialPath Bytes
-    ChildNode &TrieNode
+    Child &TrieNode
 }
 
 type TrieLeafNode struct {
@@ -118,7 +118,7 @@ This is the IPLD schema type for log trie nodes.
 * The IPLD block is the RLP encoded trie node: `RLP([Bytes, Bytes, ...])`.
 * Leaf node keys are the RLP encoding of the log's index.
 * Leaf node values are the RLP encoded log (Log IPLD).
-* CID links to a `LogTrieNode` use a KECCAK_256 multihash of the RLP encoded node and the EthRctLogTrie codec (tbd).
+* CID links to a `LogTrieNode` use a KECCAK_256 multihash of the RLP encoded node and the EthRctLogTrie codec (0x99, proposed).
 * The root node of the log trie is referenced in an Ethereum `Receipt` by the `LogRootCID`.
 ```ipldsch
 # LogTrieNode is an IPLD block for a node in the log trie
