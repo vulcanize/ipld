@@ -106,7 +106,7 @@ This is the IPLD schema for the ordered list of all transactions for a given blo
 
 ```ipldsch
 # Transactions contains a list of all of the Ethereum transactions at this block
-type Transactions [&Transaction]
+type Transactions [Transaction]
 ```
 
 ## Receipts IPLD
